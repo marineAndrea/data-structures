@@ -14,8 +14,6 @@ var Stack = function(){
   someInstance.pop = function(){
     if (length > 0) {
       length--;
-    } else {
-      length = 0;
     }
     return storage[length];
   };

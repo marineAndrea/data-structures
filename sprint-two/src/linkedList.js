@@ -8,26 +8,26 @@ var LinkedList = function(){
     if (list.head === null && list.tail === null) { //if no nodes
       list.head = newNode;
       list.tail = newNode;
-    } else if (list.head.value === list.tail.value) { // if one node
+    } else {
       list.head.next = newNode;
       list.tail = newNode;
-    } else { // if multiple nodes
-      list.tail.next = newNode;
-      list.tail = newNode;
     }
   };
 
-  list.removeHead = function(){
-    var temp = list.head;
-    if (temp.next === null) {
-      list = {};
-    } else {
-      list.head = temp.next;
+  list.removeHead = function(){ // review this
+    var res = list.head.value;
+    if (list.head === list.tail) {
+      list.tail = null;
     }
-    return temp.value;
+    list.head = list.head.next;
+    return res;
   };
 
-  list.contains = function(target){
+  list.contains = function(target){ // rewrite using while loop
+    // var first = list.head;
+    // while (first !== target) {
+
+    // }
     var checkNodesValue = function(node) {
       if (node === list.tail) {
         return node.value === target;

@@ -12,11 +12,6 @@ var BinarySearchTree = function(value){
 var binarySearchTreePrototype = {};
 
 binarySearchTreePrototype.insert = function(value) {
-  //base case:
-
-
-
-
   // check if value is smaller or larger than this.value
   if (value < this.value) {
     // if value is smaller than this.value
@@ -35,14 +30,22 @@ binarySearchTreePrototype.insert = function(value) {
       this.right.insert(value);
     }
   }
-
       // check if this.right === null, if so, assign
     // else call insert on this.right
-
 };
 
-binarySearchTreePrototype.contains = function() {
-
+binarySearchTreePrototype.contains = function(target) {
+  var result = false;
+  if (this.value === target) {
+    return result = true;
+  } else {
+    if (target < this.value && this.left !== null) {
+      result = this.left.contains(target);
+    } else if (target > this.value && this.right !== null) {
+      result = this.right.contains(target);
+    }
+  }
+  return result;
 };
 
 binarySearchTreePrototype.depthFirstLog = function() {

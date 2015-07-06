@@ -42,17 +42,27 @@ binarySearchTreePrototype.contains = function(target) {
 };
 
 binarySearchTreePrototype.depthFirstLog = function(fn) {
+  /*var currentNode;
+  var array = [this];
+  while(array.length > 0) {
+    currentNode = array.shift();
+    fn(currentNode.value);
+    if(currentNode.left !== null) {
+      array.push(currentNode.left);
+    }
+    if(currentNode.right !== null) {
+      array.push(currentNode.right);
+    }
+  }*/
+ 
   var node = this; 
   var helper = function(node) {
     fn(node.value);
-    debugger;
     if (node.left !== null) {
-      node = node.left; 
-      helper(node);
+      helper(node.left);
     }
     if (node.right !== null) {
-      node = node.right;
-      helper(node);
+      helper(node.right);
     }
   }
   helper(node);

@@ -1,41 +1,59 @@
-var HashTable = function(){
+var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
 };
 
-HashTable.prototype.insert = function(k, v){ // making duplicates, correct this
-  var i = getIndexBelowMaxForKey(k, this._limit); // i = 0
-  var tuple = [k, v];
-  if (this._storage.get(i)) { // if not empty
-    this._storage.set(i, this._storage.get(i).push(tuple));
-  } else {
-    this._storage.set(i, [tuple]);
+
+HashTable.prototype.insert = function(k, v) {
+  var dupl = false;
+  var idx = getIndexBelowMaxForKey(k, this._limit);
+  var bucket = this._storage.get(idx);
+  if (!bucket) {
+    bucket = [];
+    this._storage.set(idx, bucket);
   }
+  for (var i = 0; i < bucket.length; i++) {
+    var tuple = bucket[i];
+    if (tuple[0] === k) {
+      tuple[1] = v;
+      dupl = true;
+      return;
+    }
+  }
+  if (dupl === false) {
+    bucket.push([k,v]);
+  }
+  return;
 };
 
 HashTable.prototype.retrieve = function(k){
-  var i = getIndexBelowMaxForKey(k, this._limit);
-  var bucket = this._storage.get(i);
-  for (var n = 0; n < bucket.length; n++) {
-    if (bucket[n][0] === k) {
-      return bucket[n][1];
-    }
-  };
-  return; //bucket[indexTuple][1];
-  // return this._storage.get(i);
-
-};
-
-HashTable.prototype.remove = function(k){
-  var i = getIndexBelowMaxForKey(k, this._limit);
-	// this._storage.set(i, null);
-  var bucket = this._storage.get(i);
-
-  for (var n = 0; n < bucket.length; n++) {
-    if (bucket[n][0] === k) {
-      bucket[n][1] = null;
+  var idx = getIndexBelowMaxForKey(k, this._limit);
+  var bucket = this._storage.get(idx);
+  if (!bucket) {
+    return null;
+  }
+  for( var i = 0; i < bucket.length; i++ ){
+    var tuple = bucket[i];
+    if (tuple[0] === k) {
+      return tuple[1];
     }
   }
+  return null;
+};
+
+HashTable.prototype.remove = function(k) {
+  var idx = getIndexBelowMaxForKey(k, this._limit);
+  var bucket = this._storage.get(idx);
+  if (!bucket) {
+    return null;
+  }
+  for (var i = 0; i < bucket.length; i++) {
+    var tuple = bucket[i];
+    if (tuple[0] === k) {
+      bucket.splice(i, 1);
+    }
+  }
+  return;
 };
 
 

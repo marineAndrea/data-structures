@@ -42,6 +42,7 @@ binarySearchTreePrototype.contains = function(target) {
 };
 
 binarySearchTreePrototype.depthFirstLog = function(fn) {
+  // Solved iteratively
   /*var currentNode;
   var array = [this];
   while(array.length > 0) {
@@ -54,7 +55,8 @@ binarySearchTreePrototype.depthFirstLog = function(fn) {
       array.push(currentNode.right);
     }
   }*/
- 
+
+  // Solved recursively
   var node = this; 
   var helper = function(node) {
     fn(node.value);

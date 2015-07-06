@@ -17,8 +17,6 @@ Graph.prototype.removeNode = function(node){
   var index = _.indexOf(this.nodes, node);
   this.nodes.splice(index, 1);
   this.connections.splice(index, 1);
-
-  // this.connections.slice(index, 1);
 };
 
 Graph.prototype.hasEdge = function(fromNode, toNode){
